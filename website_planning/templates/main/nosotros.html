@@ -1,0 +1,100 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Nosotros
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/nosotros.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title-nosotros">
+    <h1>Nosotros</h1>
+    <p>Te contamos un poco sobre el equipo.</p>
+</div>
+
+<div class="wrapper">
+    <ul class="flex cards">
+        <li class="vision">
+            <h2>VISION</h2>
+            <p>Consolidar la información de la empresa de manera automática y 
+                certera brindando datos estratégicos, accesibles y útiles.
+            </p>
+        </li>
+        <li class="mision">
+            <h2>MISION</h2>
+            <p>Centralización de la información con calidad y fiabilidad, corrigiendo 
+                y gestionando los datos de forma universalmente accesible y útil a 
+                clientes internos/externos.
+            </p>
+        </li>
+        <li class="valores">
+            <h2>VALORES</h2>
+            <ul>
+                <li> Cero tolerancia a las fallas </li>
+                <li> Vocación de Servicio</li>
+                <li> Simplicidad</li>
+                <li> Eficiencia </li>
+                <li> Liderazgo</li>
+                <li> Claridad </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="equipo">
+    <div class="jefes">
+        <div class="gcia">
+            <h3 class="">Alejandra Schibler</h3>
+            <ul>
+                <li>Gerencia</li>
+                <li>email: aschibler@claro.com.ar</li>
+            </ul>
+        </div>
+        <div class="jefe">
+            <h3 class="">Raul Capdevila</h3>
+            <ul>
+                <li>Jefatura</li>
+                <li>email: raul.capdevila@claro.com.ar</li>
+            </ul>
+        </div>
+    </div>
+    <div class="analistas">
+        <div class="person">
+            <h3 class="">Florencia Origlia</h3>
+            <ul>
+                <li>Analista</li>
+                <li>email: florencia.origlia@claro.com.ar</li>
+            </ul>
+        </div>
+        <div class="person">
+            <h3 class="">Franco Dottori</h3>
+            <ul>
+                <li>Analista</li>
+                <li>email: franco.dottori@claro.com.ar</li>
+            </ul>
+        </div>
+        <div class="person">
+            <h3 class="">Juan Manuel Castillo</h3>
+            <ul>
+                <li>Analista</li>
+                <li>email: juan.castillo@claro.com.ar</li>
+            </ul>
+        </div>
+        <div class="person">
+            <h3 class="">Pablo Ruiz Diaz</h3>
+            <ul>
+                <li>Analista</li>
+                <li>email: pablo.ruizdiaz@claro.com.ar</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'main/js/nosotros.js' %}"></script>
+{% endblock %}

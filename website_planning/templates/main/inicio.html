@@ -1,0 +1,128 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Inicio
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/inicio.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title-inicio">
+    <h1>Direccion Ingenieria y Calidad de Red</h1>
+    <p>Evolucionamos buscando la excelencia en calidad de datos</p>
+</div>
+
+<div class="onair-aup">
+    <div class="arg">
+        <img src="{% static 'main/img/arg.png' %}" alt="E">
+        <div class="onair-pais">
+            <span class="counter"></span>
+            <p>sitios</p>
+        </div>
+        <div class="blockTecno">
+            <div>
+                <h3>Macro: <span class="counterARG"></span></h3>
+                <h3>Streetcell: <span class="counterARG"></span></h3>
+                <h3>Indoor: <span class="counterARG"></span></h3>
+            </div>
+            <div>
+                <h3>2G: <span class="tecnoARG"></span></h3>
+                <h3>3G: <span class="tecnoARG"></span></h3>
+                <h3>4G: <span class="tecnoARG"></span></h3>
+                <h3>5G NR: <span class="tecnoARG"></span></h3>
+                <h3>5G DSS: <span class="tecnoARG"></span></h3>
+            </div>
+        </div>
+        <h3>Localidades: <span class="pobARG"></span></h3>
+        <h3>Localidades cubiertas: <span class="pobARG"></span></h3>
+        <h3>Poblacion cubierta: <span class="pobARG"></span></h3>
+    </div>
+    <div class="uy">
+        <img src="{% static 'main/img/uru.png' %}" alt="E">
+        <div class="onair-pais">
+            <span class="counter"></span>
+            <p>sitios</p>
+        </div>
+        <div class="blockTecno">
+            <div>
+                <h3>Macro: <span class="counterURU"></span></h3>
+                <h3>Streetcell: <span class="counterURU"></span></h3>
+                <h3>Indoor: <span class="counterURU"></span></h3>
+            </div>
+            <div>
+                <h3>2G: <span class="tecnoURU"></span></h3>
+                <h3>3G: <span class="tecnoURU"></span></h3>
+                <h3>4G: <span class="tecnoURU"></span></h3>
+                <h3>5G NR: <span class="tecnoURU"></span></h3>
+                <h3>5G DSS: <span class="tecnoURU"></span></h3>
+            </div>
+        </div>
+        <h3>Localidades: <span class="pobURU"></span></h3>
+        <h3>Localidades cubiertas: <span class="pobURU"></span></h3>
+        <h3>Poblacion cubierta: <span class="pobURU"></span></h3>
+    </div>
+    <div class="py">
+        <img src="{% static 'main/img/par.png' %}" alt="E">
+        <div class="onair-pais">
+            <span class="counter"></span>
+            <p>sitios</p>
+        </div>
+        <div class="blockTecno">
+            <div>
+                <h3>Macro: <span class="counterPAR"></span></h3>
+                <h3>Streetcell: <span class="counterPAR"></span></h3>
+                <h3>Indoor: <span class="counterPAR"></span></h3>
+            </div>
+            <div>
+                <h3>2G: <span class="tecnoPAR"></span></h3>
+                <h3>3G: <span class="tecnoPAR"></span></h3>
+                <h3>4G: <span class="tecnoPAR"></span></h3>
+                <h3>5G NR: <span class="tecnoPAR"></span></h3>
+                <h3>5G DSS: <span class="tecnoPAR"></span></h3>
+            </div>
+        </div>
+        <h3>Localidades: <span class="pobPAR"></span></h3>
+        <h3>Localidades cubiertas: <span class="pobPAR"></span></h3>
+        <h3>Poblacion cubierta: <span class="pobPAR"></span></h3>
+    </div>
+</div>
+
+<!-- footer start -->
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <img src="{% static 'main/img/large_logo.png' %}" alt="E">
+        </div>
+        <div class="footer-column">
+            <div class="column1">
+                <ul class="footer-text">
+                    <li>&ensp;Gcia. Planeación Red</li>
+                    <li>&ensp;Jef. Reporting</li>
+                </ul>
+            </div>
+            <div class="column2">
+                <ul class="footer-text">
+                    <li>&ensp;Edificio Sabattini</li>
+                    <li>&ensp;Cordoba, Argentina</li>
+                </ul>
+            </div>
+            <div class="column3">
+                <i class='bx bxl-python bx-sm'></i>
+                <i class='bx bxl-django bx-sm'></i>
+                <i class='bx bxl-docker bx-sm'></i>
+                <i class='bx bx-data bx-sm'></i>
+                <i class='bx bx-bot bx-sm'></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'main/js/inicio.js' %}"></script>
+{% endblock %}

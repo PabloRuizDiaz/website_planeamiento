@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Red -Daily-
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_daily/css/daily.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Daily de Red y Proyectos</h1>
+    <p>Para una gestion mas rapida en el area dia a dia.</p>
+</div>
+
+<div class="servicios">
+    <div class="wrapper">
+        <div class="cols">
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Creacion de UTs</p>
+                            <span>Planilla para la creacion de nuevas Ubicaciones Tecnicas.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="{% url 'AltaUT' %}" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_daily/js/daily.js' %}"></script>
+{% endblock %}

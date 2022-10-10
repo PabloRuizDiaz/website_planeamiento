@@ -1,0 +1,319 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Proyectos Core
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'gcia_servicios/css/prycore.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Proyectos Core</h1>
+    <p>Servicio de reporte de Proyectos de la Core para ICA</p>
+</div>
+
+<div class="pryCore">
+    <div class="nuevoPry">
+        <button class="buttomNuevoPry">Nuevo Proyecto</button>
+    </div>
+    <div class="actualizarPry">
+        <button class="buttomActPry">Activar/Cancelar/Finalizar Proyecto</button>
+    </div>
+    <div class="actualizarEstado">
+        <button class="buttomActEst">Actualizar Estado</button>
+    </div>
+    <div class="verpry">
+        <button class="buttomVerBusqueda">Visualizar Proyecto cargado</button>
+    </div>
+</div>
+
+<div class="nuevo_pry" style="display: none;">
+    <h1>Cargar nuevo proyecto</h1>
+
+    <form action="{% url 'PryCoreNuevo' %}" class='box' method="POST" novalidate>
+        {% csrf_token %}
+        <div class="form">
+            <div class="formIzquierda">
+                <input type="text" name="legajo" placeholder="Legajo del informador" required>
+                
+                <input type="text" name="proyecto_sap" placeholder="Nombre del Proyecto en SAP" required>
+                
+                <input type="text" name="cege_universal" placeholder="Cege Universal (-sin 3er y 4to digito- A2010112)" required>
+                
+                <input type="text" name="proyecto_gcia" placeholder="Nombre del Proyecto en la Gerencia" required>
+                
+                <select name="estado" class="select" required>
+                    <option disabled selected>Estado del Proyecto</option>
+                    <option value="no_iniciado">No Iniciado
+                    <option value="activo">Activo
+                    <option value="stand_by">Stand by
+                    <option value="cancelado">Cancelado
+                    <option value="finalizado">Finalizado
+                </select>
+                
+                <textarea name="alcance" placeholder="Alcance del Proyecto (responde a las preguntas: qué? dónde? por qué?)" required></textarea>
+            </div>
+            <div class="formDerecha">
+                <select name="pais" class="select" required>
+                    <option disabled selected>Pais</option>
+                    <option value="ar">Argentina
+                    <option value="uy">Uruguay
+                    <option value="py">Paraguay
+                </select> 
+                
+                <input name="anio_sap" type="number" min="2020" max="2099" step="1" placeholder="Año Capex" required>
+                
+                <select name="red" class="select" required>
+                    <option disabled selected>Red</option>
+                    <option value="movil">Movil
+                    <option value="fija">Fija
+                </select>
+                
+                <select name="valoracion" class="select" required>
+                    <option disabled selected>Valoracion</option>
+                    <option value="pry_menor">Proyecto menor
+                    <option value="bronce">Bronce
+                    <option value="plata">Plata
+                    <option value="oro">Oro
+                </select>
+                
+                <input type="text" name="responsable" placeholder="Nombre del Responsable" required>
+                
+                <select name="gerencia" class="select" required>
+                    <option disabled selected>Gerencia</option>
+                    <option value="tx">TX e IP
+                    <option value="serv_fij">Servicios Fijos
+                    <option value="calidad">Calidad
+                    <option value="ipypc">Ing P y PC
+                    <option value="tecno_uy">Tecnología UY
+                    <option value="tecno_py">Tecnología PY
+                </select>
+                
+                <input type="date" name="fecha_inicio_estimada" class="date" placeholder="Fecha estimada de Inicio" required>
+                
+                <input type="date" name="fecha_fin_estimada" class="date" placeholder="Fecha estimada de Fin" required>
+            </div>
+        </div>
+
+        <button type="submit" class="" href="{% url 'PryCoreNuevo' %}">Cargar</button>
+    </form>
+</div>
+
+<div class="actualizar_pry" style="display: none;">
+    <h1>Actualización del Proyecto</h1>
+
+    <form action="{% url 'PryCoreActualizar' %}" class='box' method="POST" novalidate>
+        {% csrf_token %}
+        <input type="text" name="legajo" placeholder="Legajo del informador" required>
+        
+        <select name="proyecto_id" required>
+            <option disabled selected>Nombre del Proyecto</option>
+            {% for x in list_all_pry %}
+                <option value="{{ x.ID }}">{{ x.GERENCIA }} - {{ x.PROYECTO_GCIA }}
+            {% endfor %}
+        </select>
+         
+        <select name="estado" required>
+            <option disabled selected> Estado del Proyecto</option>
+            <option value="no_iniciado">No Iniciado
+            <option value="activo">Activo
+            <option value="stand_by">Stand by
+            <option value="cancelado">Cancelado
+            <option value="finalizado">Finalizado
+        </select>
+        
+        <input type="date" name="fecha_inicio_real" value="fecha" class="date" placeholder="Fecha Real de Inicio">
+        
+        <input type="date" name="fecha_fin_real" value="fecha" class="date" placeholder="Fecha Real de Fin">
+        
+        <input type="date" name="fecha_cancelacion" value="fecha" class="date" placeholder="Fecha de Cancelacion">
+        
+        <textarea rows="4" cols="50" name="motivo_cancelacion" placeholder="Motivo de Cancelacion"></textarea>
+        
+        <button type="submit" class="" href="{% url 'PryCoreActualizar' %}">Cargar</button>
+    </form>
+</div>
+
+<div class="actualizar_estado" style="display: none;">
+    <h1>Actualización del estado del Proyecto</h1>
+        
+    <form action="{% url 'PryCoreEstado' %}" class='box' method="POST" novalidate>
+        {% csrf_token %}
+        <div class="form">
+            <div class="formIzquierda">
+                <input type="text" name="legajo" placeholder="Legajo del informador" required>
+                
+                <select name="proyecto_gcia" required>
+                    <option disabled selected>Nombre del Proyecto</option>
+                    {% for x in list_pry_act %}
+                    <option value="{{ x.ID }}">{{ x.GERENCIA }} - {{ x.PROYECTO_GCIA }}
+                        {% endfor %}
+                </select>
+                
+                <select name="fase_compras" required>
+                    <option disabled selected>Fase Compras</option>
+                    <option value="no_aplica">No Aplica
+                    <option value="verde">Verde
+                    <option value="amarillo">Amarillo
+                    <option value="rojo">Rojo
+                    <option value="finalizado">Finalizado
+                </select>
+                
+                <select name="fase_preparacion" required>
+                    <option disabled selected>Fase Preparacion</option>
+                    <option value="no_aplica">No Aplica
+                    <option value="verde">Verde
+                    <option value="amarillo">Amarillo
+                    <option value="rojo">Rojo
+                    <option value="finalizado">Finalizado
+                </select>
+                
+                <select name="fase_implementacion" required>
+                    <option disabled selected>Fase Implementacion</option>
+                    <option value="no_aplica">No Aplica
+                    <option value="verde">Verde
+                    <option value="amarillo">Amarillo
+                    <option value="rojo">Rojo
+                    <option value="finalizado">Finalizado
+                </select>
+                
+                <select name="fase_pruebas" required>
+                    <option disabled selected>Fase Pruebas</option>
+                    <option value="no_aplica">No Aplica
+                    <option value="verde">Verde
+                    <option value="amarillo">Amarillo
+                    <option value="rojo">Rojo
+                    <option value="finalizado">Finalizado
+                </select>
+                
+                <select name="fase_produccion" required>
+                    <option disabled selected>Fase Produccion</option>
+                    <option value="no_aplica">No Aplica
+                    <option value="verde">Verde
+                    <option value="amarillo">Amarillo
+                    <option value="rojo">Rojo
+                    <option value="finalizado">Finalizado
+                </select>
+
+                <textarea name="situacion" placeholder="Situacion del Proyecto" required></textarea>
+            </div>
+            <div class="formDerecha">
+                <input type="date" name="fecha_replan" value="fecha" class="date" placeholder="Fecha Re-Plan">
+                
+                <textarea name="motivo_replan" placeholder="Motivo del Re-Plan"></textarea>
+                
+                <input type="date" name="fecha_standby" value="fecha" class="date" placeholder="Fecha de Stand By">
+                
+                <textarea rows="4" cols="50" name="motivo_standby" placeholder="Motivo del Stand By"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="" href="{% url 'PryCoreEstado' %}">Cargar</button>
+    </form>
+</div>
+
+<div class="verBusqueda" style="display: none;">
+    <div class="box busquedapry">
+        <input type="text" id="myInput" onkeyup="findPry()" placeholder="Buscar Proyecto">
+    </div>
+    
+    <h2><i class='bx bxs-spreadsheet'></i>  Tabla de Proyectos</h2>
+    <table id="tablapry" class="tablapry">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">PROYECTO_SAP</th>
+                <th scope="col">CEGE_UNIVERSAL</th>
+                <th scope="col">PROYECTO_GCIA</th>
+                <th scope="col">ESTADO</th>
+                <th scope="col">ANIO_SAP</th>
+                <th scope="col">PAIS</th>
+                <th scope="col">RED</th>
+                <th scope="col">VALORACION</th>
+                <th scope="col">RESPONSABLE</th>
+                <th scope="col">GERENCIA</th>
+                <th scope="col">FECHA_INICIO_ESTIMADA</th>
+                <th scope="col">FECHA_FIN_ESTIMADA</th>
+                <th scope="col">FECHA_INICIO_REAL</th>
+                <th scope="col">FECHA_FIN_REAL</th>
+                <th scope="col">FECHA_CANCELACION</th>
+                <th scope="col">MOTIVO_CANCELACION</th>
+                <th scope="col">USUARIO_REPORTE</th>
+                <th scope="col">FECHA_CREACION</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in list_model_pry %}
+                <tr>
+                    <td>{{ x.ID }}</td>
+                    <td>{{ x.PROYECTO_SAP }}</td>
+                    <td>{{ x.CEGE_UNIVERSAL }}</td>
+                    <td>{{ x.PROYECTO_GCIA }}</td>
+                    <td>{{ x.ESTADO }}</td>
+                    <td>{{ x.ANIO_SAP }}</td>
+                    <td>{{ x.PAIS }}</td>
+                    <td>{{ x.RED }}</td>
+                    <td>{{ x.VALORACION }}</td>
+                    <td>{{ x.RESPONSABLE }}</td>
+                    <td>{{ x.GERENCIA }}</td>
+                    <td>{{ x.FECHA_INICIO_ESTIMADA }}</td>
+                    <td>{{ x.FECHA_FIN_ESTIMADA }}</td>
+                    <td>{{ x.FECHA_INICIO_REAL }}</td>
+                    <td>{{ x.FECHA_FIN_REAL }}</td>
+                    <td>{{ x.FECHA_CANCELACION }}</td>
+                    <td>{{ x.MOTIVO_CANCELACION }}</td>
+                    <td>{{ x.USUARIO_REPORTE }}</td>
+                    <td>{{ x.FECHA_CREACION }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2><i class='bx bxs-spreadsheet'></i>  Tabla de Estados</h2>
+    <table id="tablaestado" class="tablaestado">
+        <thead>
+            <tr>
+                <th scope="col">PROYECTO_GCIA</th>
+                <th scope="col">USUARIO_REPORTE</th>
+                <th scope="col">FECHA_REPORTE</th>
+                <th scope="col">FASE_COMPRAS</th>
+                <th scope="col">FASE_PREPARACION</th>
+                <th scope="col">FASE_IMPLEMENTACION</th>
+                <th scope="col">FASE_PRUEBAS</th>
+                <th scope="col">FASE_PRODUCCION</th>
+                <th scope="col">SITUACION</th>
+                <th scope="col">FECHA_REPLAN</th>
+                <th scope="col">MOTIVO_REPLAN</th>
+                <th scope="col">FECHA_STANDBY</th>
+                <th scope="col">MOTIVO_STANDBY</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in list_model_status %}
+                <tr>
+                    <td>{{ x.PROYECTO_ID.PROYECTO_GCIA }}</td>
+                    <td>{{ x.USUARIO_REPORTE }}</td>
+                    <td>{{ x.FECHA_REPORTE }}</td>
+                    <td>{{ x.FASE_COMPRAS }}</td>
+                    <td>{{ x.FASE_PREPARACION }}</td>
+                    <td>{{ x.FASE_IMPLEMENTACION }}</td>
+                    <td>{{ x.FASE_PRUEBAS }}</td>
+                    <td>{{ x.FASE_PRODUCCION }}</td>
+                    <td>{{ x.SITUACION }}</td>
+                    <td>{{ x.FECHA_REPLAN }}</td>
+                    <td>{{ x.MOTIVO_REPLAN }}</td>
+                    <td>{{ x.FECHA_STANDBY }}</td>
+                    <td>{{ x.MOTIVO_STANDBY }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_servicios/js/prycore.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Contacto
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/contacto.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title-contacto">
+    <h1>Contacto</h1>
+    <p>Esperamos tu mail en la casilla de la jefatura.</p>
+</div>
+
+<div class="contacto">
+    <div class="mensaje">
+        <div class="title-mensaje">
+            <i class='bx bx-mail-send bx-lg bx-flashing-hover'></i>
+        </div>
+        <div class="mail">
+            <form class='box' action="#" method="POST" novalidate>
+                {% csrf_token %}
+                <input class="asunto" name="subject" type="text"
+                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingresar Asunto'"
+                    placeholder="Ingresar Asunto" required>
+
+                <input class="nombre" name="name" type="text"
+                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingresa tu Nombre'"
+                    placeholder="Ingresa tu Nombre" required>
+
+                <input class="mail" name="email" type="email"
+                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Dirección de email'"
+                    placeholder="Dirección de tu e-mail" required>
+
+                <textarea class="textarea" name="message" cols="30" rows="9"
+                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Escribe el Mensaje'"
+                    placeholder=" Escribe el Mensaje" required></textarea>
+
+                <button type="submit" class="">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="calle">
+        <a href="https://goo.gl/maps/MiJFLBJG9uko1U1x8" target="_blank">
+            <i class='bx bx-directions bx-lg bx-flashing-hover'></i>
+        </a>
+        <h3>Córdoba, Argentina</h3>
+        <p>Av. Sabattini 1417</p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'main/js/contacto.js' %}"></script>
+{% endblock %}

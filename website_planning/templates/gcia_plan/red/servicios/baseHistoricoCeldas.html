@@ -1,0 +1,115 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Base Historico Celdas
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'gcia_servicios/css/baseHistoricoCeldas.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+	<h1>Base Historico Celdas</h1>
+	<p>Buscador de celdas, discriminando en dos tablas si esta activa o baja con su informacion correspondiente.</p>
+</div>
+
+<div class="formulario">
+	<form action="{% url 'HistoricoCeldas' %}" class='box' method="POST">
+        {% csrf_token %}
+        <input type="text" name="valor" placeholder="Ingrese Sitio o Celda">
+
+        <button type="submit" class="" href="{% url 'HistoricoCeldas' %}">Buscar</button>
+    </form>
+</div>
+
+{% if result %}
+	<div class="resultados">
+		{% if showspider %}
+			<h2><i class='bx bx-broadcast bx-md'></i>  Activos</h2>
+			<button class="docexcel" onclick="ExportToExcelSpider('xlsx')">Descargar</button>
+			
+			<table class="tablaspider">
+				<thead class="">
+					<tr>
+						<th scope="col">Cell Name</th>
+						<th scope="col">Sitio</th>
+						<th scope="col">Tecnologia</th>
+						<th scope="col">Latitud</th>
+						<th scope="col">Longitud</th>
+						<th scope="col">Localidad</th>
+						<th scope="col">Provincia</th>
+						<th scope="col">Pais</th>
+						<th scope="col">Azimuth</th>
+						<th scope="col">Radio de Cobertura</th>
+						<th scope="col">Angulo de Apertura</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for x in resultCeldasSpider %}
+					<tr>
+						<td>{{ x.CELL_NAME }}</td>
+						<td>{{ x.SITIO }}</td>
+						<td>{{ x.TECNOLOGIA }}</td>
+						<td>{{ x.LATITUD }}</td>
+						<td>{{ x.LONGITUD }}</td>
+						<td>{{ x.LOCALIDAD }}</td>
+						<td>{{ x.PROVINCIA }}</td>
+						<td>{{ x.PAIS }}</td>
+						<td>{{ x.AZIMUTH }}</td>
+						<td>{{ x.COBERTURA }}</td>
+						<td>63</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+		
+		{% if showbaja %}
+			<h2><i class='bx bx-broadcast bx-md'></i>  Bajas</h2>
+			<button class="docexcel" onclick="ExportToExcelBajas('xlsx')">Descargar</button>
+
+			<table class="tablabajas">
+				<thead class="">
+					<tr>
+						<th scope="col">Cell Name</th>
+						<th scope="col">Sitio</th>
+						<th scope="col">Tecnologia</th>
+						<th scope="col">Latitud</th>
+						<th scope="col">Longitud</th>
+						<th scope="col">Localidad</th>
+						<th scope="col">Provincia</th>
+						<th scope="col">Pais</th>
+						<th scope="col">Azimuth</th>
+						<th scope="col">Radio de Cobertura</th>
+						{% comment %}<th scope="col">Fecha de Baja</th>{% endcomment %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for x in resultCeldasBaja %}
+					<tr>
+						<td>{{ x.CELL_NAME }}</td>
+						<td>{{ x.SITIO }}</td>
+						<td>{{ x.TECNOLOGIA }}</td>
+						<td>{{ x.LATITUD }}</td>
+						<td>{{ x.LONGITUD }}</td>
+						<td>{{ x.LOCALIDAD }}</td>
+						<td>{{ x.PROVINCIA }}</td>
+						<td>{{ x.PAIS }}</td>
+						<td>{{ x.AZIMUTH }}</td>
+						<td>63</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
+{% endif %}
+
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_servicios/js/baseHistoricoCeldas.js' %}"></script>
+{% endblock %}

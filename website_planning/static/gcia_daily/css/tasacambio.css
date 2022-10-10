@@ -1,0 +1,196 @@
+:root{
+--font-light: 10px;
+--font-normal: 16px;
+--font-h1: 70px;
+--font-h2: 30px;
+--font-h3: 20px;
+--color-dark:#11101d;
+--color-low-dark: #1d1b31;
+--color-light: #ececec;
+--color-light-blue: #a9bcd0;
+--color-light-grey: #787e87;
+--color-grey: #343a40;
+}
+body{
+background-image: url("/static/gcia_daily/img/gcia_daily.png");
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+color: var(--color-light);
+}
+body::before{
+content: "";
+width: 100%;
+height: 100%;
+background-color: black;
+background-position: center;
+background-size: 100%;
+position: fixed;
+opacity: 50%;
+}
+.title{
+left: 260px;
+padding-bottom: 15px;
+transition: all 0.5s ease;
+background-color: var(--color-grey);
+opacity: 90%;
+margin-bottom: 50px;
+border-radius: 15px;
+}
+.sidebar.close ~ .title{
+left: 78px;
+width: calc(100% - 78px);
+}
+.title h1{
+font-family: 'Bebas Neue';
+font-size: var(--font-h1);
+color: var(--color-light);
+text-align: center;
+padding: 5px 0 5px 0;
+}
+.title p{
+font-size: var(--font-normal);
+color: var(--color-light);
+text-align: center;
+margin: 0 25px;
+}
+.formtasa .box .form{
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+}
+.formtasa .box .form .valortc1,
+.formtasa .box .form .valortc2{
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.form > input,
+.form > select{
+margin-bottom: 5px;
+width: 500px;
+}
+.box input[type = "number"],
+.box input[type = "date"],
+.box select{
+border:0;
+background: var(--color-light);
+margin: 10px auto;
+text-align: center;
+border: 2px solid var(--color-light-blue);
+padding: 5px 10px;
+width: 500px;
+outline: none;
+color: var(--color-low-dark);
+border-radius: 24px;
+transition: 0.25s;
+}
+.date::before{
+content: attr(placeholder);
+}
+.box button[type = "submit"]{
+background: none;
+display: block;
+margin: 20px auto;
+text-align: center;
+border: 2px solid var(--color-light);
+padding: 14px 40px;
+outline: none;
+color: var(--color-light);
+font-size: var(--font-normal);
+border-radius: 24px;
+transition: 0.25s;
+cursor: pointer;
+}
+.box button[type = "submit"]:hover{
+background: var(--color-light);
+color: var(--color-low-dark);
+}
+/*  */
+.verResultadotasa h3{
+font-size: var(--font-h3);
+padding: 10px 20px;
+margin: 0 400px;
+text-align: center;
+text-transform: uppercase;
+text-rendering: optimizeLegibility;
+border-bottom: 3px solid var(--color-light);
+border-radius: 10%;
+}
+.verResultadotasa i{
+margin: 0 0 0 25px;
+}
+table{
+border-collapse: separate;
+background: #fff;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+margin: 50px auto;
+-moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+-webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+thead {
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+}
+thead th {
+font-size: 16px;
+font-weight: 400;
+color: #fff;
+text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+text-align: left;
+padding: 20px;
+background-size: 100%;
+background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #646f7f), color-stop(100%, #4a5564));
+background-image: -moz-linear-gradient(#646f7f, #4a5564);
+background-image: -webkit-linear-gradient(#646f7f, #4a5564);
+background-image: linear-gradient(#646f7f, #4a5564);
+border-top: 1px solid #858d99;
+}
+thead th:first-child {
+-moz-border-radius-topleft: 5px;
+-webkit-border-top-left-radius: 5px;
+border-top-left-radius: 5px;
+}
+thead th:last-child {
+-moz-border-radius-topright: 5px;
+-webkit-border-top-right-radius: 5px;
+border-top-right-radius: 5px;
+}
+tbody tr td {
+font-weight: 400;
+color: #5f6062;
+font-size: 13px;
+padding: 20px 20px 20px 20px;
+border-bottom: 1px solid #e0e0e0;
+}
+tbody tr:nth-child(2n) {
+background: #f0f3f5;
+}
+tbody tr:last-child td {
+border-bottom: none;
+}
+tbody tr:last-child td:first-child {
+-moz-border-radius-bottomleft: 5px;
+-webkit-border-bottom-left-radius: 5px;
+border-bottom-left-radius: 5px;
+}
+tbody tr:last-child td:last-child {
+-moz-border-radius-bottomright: 5px;
+-webkit-border-bottom-right-radius: 5px;
+border-bottom-right-radius: 5px;
+}
+tbody:hover > tr td {
+filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+opacity: 0.5;
+}
+tbody:hover > tr:hover td {
+text-shadow: none;
+color: #2d2d2d;
+filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+opacity: 1;
+}

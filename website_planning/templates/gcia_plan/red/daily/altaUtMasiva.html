@@ -1,0 +1,118 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Alta Masiva UTs
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'gcia_daily/css/utMasivo.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+	<h1>Creacion de Ubicaciones Tecnicas Masivo</h1>
+	<p>Creacion y armado de ubicaciones tecnicas de 23 digitos, con asignacion de cell id nuevo a traves de un excel (para creaciones masivas).</p>
+</div>
+
+<div class="notes">
+    <h2>Notas:</h2>
+    <ol>
+        <li><i class='bx bx-check bx-sm'></i>  Utilizar el template para la carga de informacion.</li>
+        <li><i class='bx bx-check bx-sm'></i>  Al completar el "Tipo UT", hay que usar el acronimo (ejemplo, IM para Infraestructura Movil).</li>
+        <li><i class='bx bx-check bx-sm'></i>  Si un campo no necesita completarse, puede estar en blanco.</li>
+        <li><i class='bx bx-check bx-sm'></i>  Tener presente que los campos obligatorios son: Latitud, Longitud, Tipo UT, Nombre y Direccion si no se quiere fallas.</li>
+    </ol>
+</div>
+
+<form action="{% url 'AltaMasivaUT' %}" class="box" method="POST" enctype="multipart/form-data" novalidate>
+	{% csrf_token %}
+	<input type="file" name="file" id=""><br>
+    <button type="submit" class="" href="{% url 'AltaMasivaUT' %}">Crear UTs</button>
+</form>
+
+<div class="template">
+    <h2><i class='bx bx-grid bx-sm'></i>  Template de carga</h2>
+    <button onclick="ExportToExcelTemplate('xlsx')">Descargar</button>
+
+    <table class="tablaTemplate" style="display: none;">
+        <thead class="">
+            <tr>
+                <th scope="col">LATITUD</th>
+                <th scope="col">LONGITUD</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">CELL_ID</th>
+                <th scope="col">TIPO_UT</th>
+                <th scope="col">SOL_ESP</th>
+                <th scope="col">DIRECCION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr> 
+        </tbody>
+    </table>
+</div>
+
+{% if result %}
+    <div class="resultado">
+        <h2><i class='bx bx-broadcast bx-md'></i>  UTs</h2>
+        <button class="docexcel" onclick="ExportToExcelSitios('xlsx')">Descargar</button>
+        
+        <table class="tablasuts">
+            <thead class="">
+                <tr>
+                    <th>UT</th>
+                    <th>TIPO</th>
+                    <th>ESTRUCTURA</th>
+                    <th>DENOMINACIÓN</th>
+                    <th>GRUPO</th>
+                    <th>CENTRO</th>
+                    <th>EMPLAZAMENTO</th>
+                    <th>CECO</th>
+                    <th>SOCIEDAD</th>
+                    <th>LOC</th>
+                    <th>DEP</th>
+                    <th>PROV</th>
+                    <th>LAT</th>
+                    <th>LONG</th>
+                    <th>ALM</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sap in utMasivo %}
+                <tr>
+                    <td>{{ sap.ut }}</td>
+                    <td>{{ sap.tipo }}</td>
+                    <td>{{ sap.estructura }}</td>
+                    <td>{{ sap.denominacion }}</td>
+                    <td>{{ sap.grupo }} </td>
+                    <td>{{ sap.centro_empl }}</td>
+                    <td>{{ sap.empl }}</td>
+                    <td>{{ sap.ceco }} </td>
+                    <td>{{ sap.sociedad }}</td>
+                    <td>{{ sap.localidad }} </td>
+                    <td>{{ sap.departamento }}  </td>
+                    <td>{{ sap.provincia }} </td>
+                    <td>{{ sap.lat }}  </td>
+                    <td>{{ sap.long }}  </td>
+                    <td>{{ sap.alm }}   </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'gcia_daily/js/utMasivo.js' %}"></script>
+{% endblock %}

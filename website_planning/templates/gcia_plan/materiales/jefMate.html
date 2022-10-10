@@ -1,0 +1,81 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Gcia Plan -Materiales-
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_plan/css/gcia_plan.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Materiales</h1>
+    <p>Aqui encontrara todo lo referenciado al Seguimiento de Materiales de la Gerencia de Planeamiento.</p>
+</div>
+
+<div class="tarjetas">
+    <div class="wrapper">
+        <div class="cols">
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Reportes</p>
+                            <span>Visualizacion de reportes.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="{% url 'ReportesMat' %}" class="hover_inner">
+                                <span>Click Aqui!</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Servicios</p>
+                            <span>Visualizacion de servicios.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="{% url 'ServiciosMat' %}" class="hover_inner">
+                                <span>Click Aqui!</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Daily</p>
+                            <span>Trabajos diarios.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="{% url 'DailyMat' %}" class="hover_inner">
+                                <span>Click Aqui!</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_plan/css/gcia_plan.js' %}"></script>
+{% endblock %}

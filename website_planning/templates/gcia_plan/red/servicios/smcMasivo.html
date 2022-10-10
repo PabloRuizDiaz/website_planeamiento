@@ -1,0 +1,146 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+SMC
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'gcia_servicios/css/smcMasivo.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+	<h1>SMC - Busquedas masivas</h1>
+	<p>Buscador de sitios mas cercanos a varias coordenadas deseadas.</p>
+</div>
+
+<div class="smcForm">
+    <div class="notes">
+        <h2>Notas:</h2>
+        <ol>
+            <li><i class='bx bx-check bx-sm'></i>  Se debe utilizar el template .xlsx debajo para realizar la carga correctamente.</li>
+			<li><i class='bx bx-check bx-sm'></i>  Los resultados van a estar finalizados una vez la pagina haya terminado de cargar totalmente.</li>
+			<li><i class='bx bx-check bx-sm'></i>  La carga del documento excel no debe poseer espacios en su titulo.</li>
+        </ol>
+    </div>
+
+	<div class="consulta">
+		<form action="{% url 'SMCMasivo' %}" enctype="multipart/form-data" class='box' method="POST" novalidate>
+            {% csrf_token %}
+            <input type="file" name="file" id=""><br>
+            <button type="submit" class="" href="{% url 'SMCMasivo' %}">Cargar</button>
+        </form>
+	</div>
+	
+	<div class="resultados">
+		<div class="template">
+			<h2><i class='bx bx-grid bx-sm'></i>  Template de carga</h2>
+			<button onclick="ExportToExcelTemplate('xlsx')">Descargar</button>
+		</div>
+
+		<table class="tablaTemplate" style="display: none;">
+			<thead class="">
+				<tr>
+					<th scope="col">LATITUD</th>
+					<th scope="col">LONGITUD</th>
+					<th scope="col">CANTIDAD_DESEADOS</th>
+					<th scope="col">INDOOR</th>
+					<th scope="col">FECHA_SOLICITADA</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr> 
+			</tbody>
+		</table>
+
+		{% if resultFlag %}
+			<div class="column1">
+				<h2><i class='bx bx-broadcast bx-md'></i>  Sitios</h2>
+				<button onclick="ExportToExcelSitios('xlsx')">Descargar</button>
+			</div>
+
+			<div class="column2">
+				<h2><i class='bx bx-broadcast bx-md'></i>  Celdas</h2>
+				<button onclick="ExportToExcelCeldas('xlsx')">Descargar</button>
+			</div>
+
+			<table class="tablasitios" style="display: none;">
+				<thead class="">
+					<tr>
+						<th scope="col">Coordenadas Buscadas</th>
+						<th scope="col">Coordenadas del Sitio</th>
+						<th scope="col">Sitio</th>
+						<th scope="col">Sitio</th>
+						<th scope="col">Distancia (Km)</th>
+						<th scope="col">Calidad de cobertura</th>
+						<th scope="col">Es Indoor?</th>
+						<th scope="col">RanSharing</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for x in sitiosList %}
+						<tr>
+							<td>{{ x.COORDENADA_BUSCADA }}</td>
+							<td>{{ x.LATITUD | floatformat:5 }}, {{ x.LONGITUD | floatformat:5 }}</td>
+							<td>{{ x.SITIO }}</td>
+							<td>{{ x.SITIO_OLD }}</td>
+							<td>{{ x.DISTANCIA | floatformat:2 }}</td>
+							<td>{{ x.COBERTURA }}</td>
+							<td>{% if x.ES_INDOOR is not None %} Si
+								{% else %} No
+								{% endif %}
+							</td>
+							<td>{{ OWNER }}</td>
+						</tr> 
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<table class="tablaceldas" style="display: none;">
+				<thead class="">
+					<tr>
+						<th scope="col">Tecnologia</th>
+						<th scope="col">CellId</th>
+						<th scope="col">Nombre BTS</th>
+						<th scope="col">CellId</th>
+						<th scope="col">CID</th>
+						<th scope="col">LAC/TAC</th>
+						<th scope="col">Azimut</th>
+						<th scope="col">Radio de Cobertura (Km)</th>
+						<th scope="col">Angulo de apertura (°)</th>
+						<th scope="col">EutranCellId</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for x in celdasList %}
+						<tr>
+							<td>{{ x.TECNOLOGIA }}</td>
+							<td>{{ x.CELLID_NUEVO }}</td>
+							<td>{{ x.BTS_NAME_NUEVO }}</td>
+							<td>{{ x.SITIO_OLD }}</td>
+							<td>{{ x.CID }}</td>
+							<td>{{ x.LAC }}</td>
+							<td>{{ x.AZIMUTH }}</td>
+							<td>{{ x.RADIO }}</td>
+							<td>{{ x.ANGULO }}</td>
+							<td>{{ x.EUTRANCELLID }}</td>
+						</tr> 
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_servicios/js/smc.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Tasa de Cambio
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_daily/css/tasacambio.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Tasa de Cambio</h1>
+    <p>Visualizacion y carga de nuevas tasas de cambio para los reportes.</p>
+</div>
+
+<div class="formtasa">
+    <form action="{% url 'TasaCambio' %}" class='box' method="POST" novalidate>
+        {% csrf_token %}
+        <div class="form">
+            <div class="valortc1">
+                <input type="date" name="fecha" class="date" placeholder="Fecha de Tasa de Cambio">
+
+                <select name="pais" class="select">
+                    <option disabled selected>Pais</option>
+                    <option value="AR">Argentina</option>
+                    <option value="UY">Uruguay</option>
+                    <option value="PY">Paraguay</option>
+                </select> 
+            </div>
+
+            <div class="valortc2">
+                <input type="number" name="tc_plan" placeholder="Tasa de cambio Plan">
+
+                <input type="number" name="tc_revision" placeholder="Tasa de cambio Revision">
+
+                <input type="number" name="tc_proyectada" placeholder="Tasa de cambio Proyectada">
+            </div>
+        </div>
+
+        <button type="submit" class="" href="{% url 'TasaCambio' %}">Cargar</button>
+    </form>
+</div>
+
+<div class="verResultadotasa">
+    <h3><i class='bx bxs-spreadsheet'></i>  Tabla de Tasas de Cambio cargadas</h3>
+    
+    <table id="tabletasa" class="tabletasa">
+        <thead>
+            <tr>
+                <th scope="col">FECHA</th>
+                <th scope="col">PAIS</th>
+                <th scope="col">TC PLAN</th>
+                <th scope="col">TC REVISION</th>
+                <th scope="col">TC PROYECTADA</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in list_tasa %}
+                <tr>
+                    <td>{{ x.fecha }}</td>
+                    <td>{{ x.pais }}</td>
+                    <td>{{ x.tc_plan }}</td>
+                    <td>{{ x.tc_revision }}</td>
+                    <td>{{ x.tc_proyectada }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_daily/js/tasacambio.js' %}"></script>
+{% endblock %}

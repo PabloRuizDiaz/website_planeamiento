@@ -1,0 +1,191 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta here -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block meta %}
+    {% endblock %}
+    
+    <!-- Title here -->
+    <link rel="shortcut icon" href="{% static 'main/img/small_logo.png' %}">
+    <title>{% block titulo%}{% endblock %}</title>
+    
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'main/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/base.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> <!-- Boxiocns CDN Link -->
+    {% block css %}
+    {% endblock %}
+</head>
+
+<body>
+    <!-- header-start -->
+    <div class="sidebar close">
+        <div class="logo-details">
+            <i class='bx bx-menu bx-tada-hover'></i>
+            <span class="logo_name">ICA</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'Inicio' %}">
+                    <i class='bx bx-home bx-sm'></i>
+                    <span class="link_name">Inicio</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'Inicio' %}">Inicio</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-compass bx-sm'></i>
+                        <span class="link_name">Gcia Planeamiento</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Gcia Planeamiento</a></li>
+                    <li><a href="{% url 'Capex' %}">Capex</a></li>
+                    <li><a href="{% url 'Materiales' %}">Seg. Materiales</a></li>
+                    <li><a href="{% url 'Red' %}">Red y Proyectos</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-line-chart bx-sm'></i>
+                        <span class="link_name">Gcia Calidad</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Gcia Calidad</a></li>
+                    <li><a href="{% url 'ReportesCalidad' %}">Reportes</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-hive bx-sm'></i>
+                        <span class="link_name">Gcia RF</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Gcia RF</a></li>
+                    <li><a href="{% url 'ReportesRF' %}">Reportes</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-broadcast bx-sm'></i>
+                        <span class="link_name">Gcia Tx-IP</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Gcia Tx-IP</a></li>
+                    <li><a href="{% url 'ReportesTx' %}">Reportes</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-map-pin bx-sm'></i>
+                        <span class="link_name">Gcia Serv. Fijos</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Gcia Serv. Fijos</a></li>
+                    <li><a href="{% url 'ReportesServFij' %}">Reportes</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-cloud bx-sm'></i>
+                        <span class="link_name">Gcia IP-PC</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Gcia IP-PC</a></li>
+                    <li><a href="{% url 'ReportesIPPC' %}">Reportes</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'Nosotros' %}">
+                    <i class='bx bx-run bx-sm'></i>
+                    <span class="link_name">Nosotros</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'Nosotros' %}">Nosotros</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'Contacto' %}">
+                    <i class='bx bxs-contact bx-sm'></i>
+                    <span class="link_name">Contacto</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'Contacto' %}">Contacto</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'APIs' %}">
+                    <i class='bx bx-bug bx-sm'></i>
+                    <span class="link_name">APIs</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'APIs' %}">APIs</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="profile-details">
+                    <div class="profile-content">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logOutUser' %}">
+                                <i class='bx bx-log-out bx-sm'></i>
+                                <span class="link_name">Log-out</span>
+                            </a>
+                            <ul class="sub-menu blank">
+                                <li><a class="link_name" href="{% url 'logOutUser' %}">Log-out</a></li>
+                            </ul>
+                        {% else %}
+                            <a href="{% url 'logInUser' %}">
+                                <i class='bx bx-log-in bx-sm'></i>
+                                <span class="link_name">Log-in</span>
+                            </a>
+                            <ul class="sub-menu blank">
+                                <li><a class="link_name" href="{% url 'logInUser' %}">Log-in</a></li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main code here -->
+    <section class="home-section">
+        {% block contenido %}
+        {% endblock %}
+    </section>
+    
+    <!-- JS here -->
+    <script src="{% static 'main/js/base.js' %}"></script>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    {% block js %}
+    {% endblock %}
+
+</body>
+
+</html>

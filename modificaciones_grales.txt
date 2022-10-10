@@ -1,0 +1,46 @@
+1.  Se realizo un cambio en la gestion de static files. Donde se separo los templates
+    y static de las aplicaciones utilizando la metodologia MTV.
+
+2.  Se realiza la modificacion de MEDIA_ROOT
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+    Esto es para poder configurar todos los archivos media en Django.
+    En consecuancia, se modifican modelos.
+
+3.  Se sacaron los modelos de Integrantes, que no hace falta por el momento. Se usa html para estos.
+
+4.  Se toma como aplicaciones separadas de main lo que son las APIs y Capex. Esto es por motivo que las considero 
+    aplicaciones independientes, que tendran su propia logica de negocio.
+
+5.  En referencia a Statis, los HTML si estan separados por gerencias, areas, y demas porque son el esqueleto
+    del front-end. Pero esto no es necesario en los css y js, ya que cada esqueleto diferente, luego le damos el 
+    mismo funcionamiento (js) y color (css).
+
+6.  Se realizaron cambios de los nombres de tablas de los modelos, quedando los siguientes cambios
+        APIS =                      WEB_APIS
+        web_reportecalidad = 		WEB_REPORTECALIDAD
+        web_reporteippc = 			WEB_REPORTEIPPC
+        tasascambio = 				WEB_DAILYTASASCAMBIO
+        SAP_POSPRE = 				WEB_DAILYPOSPRE
+        FILE_POSPRE = 				WEB_FILEPOSPRE
+        LISTADO_COMEX = 			WEB_DAILYPROVEEDORES
+        CARRY_OVER_PRY = 			WEB_DAILYCARRYOVER
+        FILE_PRY_CO = 				WEB_FILECARRYOVER
+        web_reportecapex = 			WEB_REPORTECAPEX
+        Cell_id_Django 
+        UT_Django
+        web_reportered = 			WEB_REPORTERED
+        PRYCORE_LISTADO_PRY = 		WEB_DAILYPRYCORE_LISTADO
+        PRYCORE_SEGUIMIENTO_PRY = 	WEB_DAILYPRYCORE_SEGUIMIENTO
+        FILE_SMC = 					WEB_FILESMC
+        web_reporterf = 			WEB_REPORTERF
+        web_reporteservfijos = 		WEB_REPORTESERVFIJOS
+        web_reportetx = 			WEB_REPORTETX
+        main_reporte -> se borra, es de reportes por lo que no tiene mas vigencia (no tiene modelos)
+
+7.
+
+8.
+
+9.

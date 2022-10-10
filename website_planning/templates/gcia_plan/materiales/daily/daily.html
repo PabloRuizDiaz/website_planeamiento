@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Materiales -Daily-
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_daily/css/daily.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Tareas diarias de la Jefatura</h1>
+    <p>Por un alcance a la optimizacion de tareas dia a dia.</p>
+</div>
+
+{% comment %}
+<div class="servicios">
+    <div class="wrapper">
+        <div class="cols">
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Titulo</p>
+                            <span>Descripcion.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="#" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endcomment %}
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_daily/js/daily.js' %}"></script>
+{% endblock %}

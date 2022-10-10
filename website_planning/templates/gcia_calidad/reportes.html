@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Calidad -Reportes-
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_reportes/css/reportes.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title-reportes">
+    <h1>Reportes Calidad</h1>
+    <p>Acercando los datos de forma confiable.</p>
+</div>
+
+<div class="reportes">
+    <div class="wrapper">
+        <div class="cols">
+            {% for rep in dash %}
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front">
+                            <div class="inner">
+                                <p>{{rep.nombre}}</p>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                                <a href="{% url 'CargaRepoCali' rep.id %}" target="_blank" class="hover_inner">
+                                    <span>{{rep.descripcion}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_reportes/js/reportes.js' %}"></script>
+{% endblock %}

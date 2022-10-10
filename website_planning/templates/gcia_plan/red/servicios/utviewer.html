@@ -1,0 +1,62 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Buscador UTs
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'gcia_servicios/css/utviewer.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Buscardor de UT</h1>
+    <p>Servicio de busqueda y visualizacion de UTs creadas.</p>
+</div>
+
+<div class="busquedaUT">
+    <form action="{% url 'UTViewer' %}" class='box' method="POST" novalidate>
+        {% csrf_token %}
+        <input type="text" name="valor" placeholder="Ingrese Cell ID, Nombre de Cell ID o UT">
+
+        <button type="submit" class="" href="{% url 'UTViewer' %}">Buscar</button>
+    </form>
+</div>
+
+<div class="resultado">	
+	<h2><i class='bx bx-broadcast bx-md'></i>  Sitios</h2>
+	<button class="docexcel" onclick="ExportToExcelUT('xlsx')">Descargar</button>
+	
+	<table class="tablasuts">
+		<thead class="">
+			<tr>
+				<th>UT</th>
+				<th>Cell ID</th>
+				<th>Cell ID Viejo</th>
+				<th>Denominacion</th>
+				<th>Latitud</th>
+				<th>Longitud</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for x in ut %}
+			<tr>
+				<td>{{ x.ut }}</td>
+				<td>{{ x.cell_id.cell_id }}</td>
+				<td>{{ x.cell_id.cell_id_old }}</td>
+				<td>{{ x.cell_id.denominacion }}</td>
+				<td>{{ x.cell_id.latitud }}</td>
+				<td>{{ x.cell_id.longitud }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'gcia_servicios/js/utviewer.js' %}"></script>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+{% endblock %}

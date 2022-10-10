@@ -1,0 +1,113 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Sitios por Localidad
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_servicios/css/SitiosLocal.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Buscador de Sitios por Localidad</h1>
+    <p>Buscador de sitios por filtrado geografico.</p>
+</div>
+
+<div class="form">
+    <form action="{% url 'SitiosLocal' %}" class='box' method="POST" novalidate>
+        {% csrf_token %}
+        <select name="pais" id="">
+            <option disabled selected>Pais</option>
+            <option value="AR">Argentina</option>
+            <option value="UY">Uruguay</option>
+            <option value="PY">Paraguay</option>
+        </select>
+
+        <select name="provincia" id="">
+            <option disabled selected>Provincia</option>
+            {% for i in provincia %}
+                <option value="{{ i.PROVINCIA }}">{{ i.PROVINCIA }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="localidad" id="">
+            <option disabled selected>Localidad</option>
+            {% for i in localidad %}
+                <option value="{{ i.LOCALIDAD }}">{{ i.LOCALIDAD }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="" href="{% url 'SitiosLocal' %}">Cargar</button>
+    </form>
+</div>
+
+{% if result %}
+    <div class="resultado">
+        <div class="excel">
+            <h2><i class='bx bx-broadcast bx-md'></i>  Sitios</h2>
+            <button onclick="ExportToExcelSitios('xlsx')">Descargar</button>
+        </div>
+        <div>
+            <table class="tablasitios">
+                <thead class="">
+                    <tr>
+                        <th>Estado de Sitio</th>
+                        <th>Cell ID</th>
+                        <th>Cell ID Viejo</th>
+                        <th>Tecnologias</TEm></th>
+                        <th>Pais</th>
+                        <th>Provincia</th>
+                        <th>Departamento</th>
+                        <th>Municipio</th>
+                        <th>Localidad</th>
+                        <th>Calle</th>
+                        <th>Numero</th>
+                        <th>Direccion de referencia</th>
+                        <th>Latitud</th>
+                        <th>Longitud</th>
+                        <th>Tipo Estructura</th>
+                        <th>Altura Estructura</th>
+                        <th>Coubicado</th>
+                        <th>Contrato</th>
+                        <th>Vencimiento Contrato</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in sitios %}
+                    <tr>
+                        <td>{% if x.ACTIVO == 1 %} ACTIVO
+                            {% else %} NO ACTIVO
+                            {% endif %}</td>
+                        <td>{{ x.SITIO }}</td>
+                        <td>{{ x.SITIO_OLD }}</td>
+                        <td>{{ x.TECNOLOGIAS }}</td>
+                        <td>{{ x.PAIS }}</td>
+                        <td>{{ x.PROVINCIA }}</td>
+                        <td>{{ x.DEPARTAMENTO }}</td>
+                        <td>{{ x.MUNICIPIO }}</td>
+                        <td>{{ x.LOCALIDAD }}</td>
+                        <td>{{ x.CALLE }}</td>
+                        <td>{{ x.NUMERO }}</td>
+                        <td>{{ x.DIRECCION_REF }}</td>
+                        <td>{{ x.LATITUD }}</td>
+                        <td>{{ x.LONGITUD }}</td>
+                        <td>{{ x.ESTRUCTURA_TIPO }}</td>
+                        <td>{{ x.ESTRUCTURA_ALTURA }}</td>
+                        <td>{{ x.COUBICADO }}</td>
+                        <td>{{ x.ESTADO_CONTRATO }}</td>
+                        <td>{{ x.VTO_CONTRATO|date:'d-m-Y' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_servicios/js/SitiosLocal.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Red -Servicios-
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_servicios/css/servicios.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title-servicios">
+    <h1>Nuestros Servicios</h1>
+    <p>Acercando servicios de agilidad y simplicidad.</p>
+</div>
+
+<div class="servicios">
+    <div class="wrapper">
+        <div class="cols">
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>SMC</p>
+                            <span>Buscador de sitios mas cercanos dentro de un radio de 15km.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="#" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Proyectos Core</p>
+                            <span>Carga, actualizacion y cierre de Proyectos Core seguidos por ICA.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href= "{% url 'PryCore' %}" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Base Historica Celdas</p>
+                            <span>Buscador de celdas, activas o bajas.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href= "#" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Busqueda UTs</p>
+                            <span>Busqueda de Ubicaciones Tecnicas.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href= "#" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Buscador de Sitios por Localidad</p>
+                            <span>Busqueda de sitios existentes en una Localidad o Municipio.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href= "#" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Buscador de Sitios por Calles</p>
+                            <span>Busqueda de sitios existentes en una o varias calles.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href= "#" target="_blank" class="hover_inner">
+                                <span>En Desarrollo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_servicios/js/servicios.js' %}"></script>
+{% endblock %}

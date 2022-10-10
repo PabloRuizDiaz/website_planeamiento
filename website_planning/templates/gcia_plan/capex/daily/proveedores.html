@@ -1,0 +1,65 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Carga de Proveedores
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_daily/css/proveedores.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Carga de nuevos Proveedores</h1>
+    <p>Visualizacion y carga de nuevos Proveedores para los reportes y procesos de trabajo automaticos.</p>
+</div>
+
+<div class="form">
+    <form action="{% url 'Proveedores' %}" class='box' method="POST" novalidate>
+        {% csrf_token %}
+        <div class="form">
+            <input type="number" name="NROPROVEEDOR" class="" placeholder="ID Proveedor SAP">
+            
+            <input type="text" name="PROVEEDOR" class="" placeholder="Nombre de Proveedor">
+            
+            <select name="COMEX" class="select">
+                <option disabled selected>Comex</option>
+                <option value="1">Si</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <button type="submit" class="" href="{% url 'Proveedores' %}">Cargar</button>
+    </form>
+</div>
+
+<div class="verResultado">
+    <h3><i class='bx bxs-spreadsheet'></i>  Listado de Proveedores cargados</h3>
+    
+    <table id="tableproveedor" class="tableproveedor">
+        <thead>
+            <tr>
+                <th scope="col">NR_PROVEEDOR</th>
+                <th scope="col">PROVEEDOR</th>
+                <th scope="col">COMEX</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in list_proveedores %}
+                <tr>
+                    <td>{{ x.NROPROVEEDOR }}</td>
+                    <td>{{ x.PROVEEDOR }}</td>
+                    <td>{{ x.COMEX }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_daily/js/proveedores.js' %}"></script>
+{% endblock %}

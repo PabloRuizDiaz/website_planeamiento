@@ -1,0 +1,120 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Alta UTs
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'gcia_daily/css/ut_alta.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+	<h1>Creacion de Ubicaciones Tecnicas</h1>
+	<p>Creacion y armado de ubicaciones tecnicas de 23 digitos, con asignacion de cell id nuevo.</p>
+</div>
+
+<form action="{% url 'AltaUT' %}" class="box" action="#" method="POST">
+	{% csrf_token %}
+	<div class="utForm">
+		<div class="colum1">
+			<input type="text" name="latlong"  placeholder="Coordenadas (lat, long): -31.403841, -64.234199"
+			class="" required 
+			pattern="[-]\d+\.\d+\s*[,]\s*[-]\d+\.\d+\s*$" title="usar . como decimal y , para separar los valores"> 
+			
+			<input type="text" name="cell" placeholder="Cell ID" class=""> 
+			
+			<select class="" name="select" required>
+				<option disabled selected>Tipo UT</option>
+				<option value='IM'>INFRAESTRUCTURA MOVIL</option>
+				<option value='IF'>INFRAESTRUCTURA FIJA</option>
+				<option value='LC'>LOCALES COMERCIALES</option>
+				<option value='CN'>CANONES</option>
+				<option value='CV'>CAC</option>
+				<option value='CPM'>MOVIL CORPORATIVAS</option>
+				<option value='DCM'>MOVIL DATA CENTERS</option>
+				<option value='EM'>ACCESOS EMPRESARIALES</option>
+				<option value='CPF'>FIJA CORPORATIVAS</option>
+				<option value='DCF'>FIJA DATA CENTERS</option>
+				<option value='BD'>WAREHOUSE</option>
+				<option value='TR'>TORRERA</option>
+			</select>
+		</div>
+		
+		<div class="colum2">
+			<select class="" name="solEspselect" required>
+				<option disabled selected>Solucion Especial</option>
+				<option value='None'> - </option>
+				<option value='BDA'>BDA</option>
+				<option value='AMBA'>AMBA</option>
+			</select>
+			
+			<input type="text" name="nombre" placeholder="Nombre" class="" required> 
+			
+			<input type="text" name="address"  class="" placeholder="Direccion: Calle y número" > 
+		</div>
+	</div>
+	
+	<div>
+        <button type="submit" class="" href="{% url 'AltaUT' %}">Crear UT</button>
+	</div>
+</form>
+
+<div class="ut-masivo">
+	<p><i class='bx bxs-bell-ring bx-tada' ></i>  Para la creacion de varias UTs, haga click <a href="{% url 'AltaMasivaUT' %}">aqui</a>.  <i class='bx bxs-bell-ring bx-tada' ></i></p>
+</div>
+
+<div class="resultado">
+	<h2><i class='bx bx-broadcast bx-md'></i>  UTs</h2>
+	<button class="docexcel" onclick="ExportToExcelSitios('xlsx')">Descargar</button>
+	
+	<table class="tablasuts">
+		<thead class="">
+			<tr>
+				<th>UT</th>
+				<th>TIPO</th>
+				<th>ESTRUCTURA</th>
+				<th>DENOMINACIÓN</th>
+				<th>GRUPO</th>
+				<th>CENTRO</th>
+				<th>EMPLAZAMENTO</th>
+				<th>CECO</th>
+				<th>SOCIEDAD</th>
+				<th>LOC</th>
+				<th>DEP</th>
+				<th>PROV</th>
+				<th>LAT</th>
+				<th>LONG</th>
+				<th>ALM</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for sap in ut_list %}
+			<tr>
+				<td>{{ sap.ut }}</td>
+				<td>{{ sap.tipo }}</td>
+				<td>{{ sap.estructura }}</td>
+				<td>{{ sap.denominacion }}</td>
+				<td>{{ sap.grupo }} </td>
+				<td>{{ sap.centro_empl }}</td>
+				<td>{{ sap.empl }}</td>
+				<td>{{ sap.ceco }} </td>
+				<td>{{ sap.sociedad }}</td>
+				<td>{{ sap.localidad }} </td>
+				<td>{{ sap.departamento }}  </td>
+				<td>{{ sap.provincia }} </td>
+				<td>{{ sap.lat }}  </td>
+				<td>{{ sap.long }}  </td>
+				<td>{{ sap.alm }}   </td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'gcia_daily/js/ut_alta.js' %}"></script>
+{% endblock %}

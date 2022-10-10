@@ -1,0 +1,163 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+SMC
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'gcia_servicios/css/smc.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+	<h1>SMC</h1>
+	<p>Buscador de sitios mas cercanos a una coordenada deseada</p>
+</div>
+
+<div class="smcForm">
+	<div class="consulta">
+		<form class='box' method="POST" novalidate>
+			{% csrf_token %}
+			<div>
+				<h3>Ingresar coordenadas (Ej: -23.3523362,-64.214325)</h3>
+				<input type="text" name="coordenada1" class="" aria-describedby="coordHelp"
+					pattern="\s*[-]\d+\.\d+\s*[,]\s*[-]\d+\.\d+\s*$" 
+					title="usar . como decimal y , para separar los valores" required> 
+			</div>
+			<div>
+				<h3>Cantidad de sitios deseados</h3>
+				<input type="number" class="" value="5" min="5" max="20" step="1" name="maxBusquedas1">
+			</div>
+			<div>
+				<h3>Excluir indoors</h3>
+				<div class="container">
+						<div class="check">
+							<input id="check" type="checkbox" name="indoorsCheck1" checked/>
+							<label for="check">
+								<div class="box">
+									<i class='bx bx-check bx-md'></i>
+								</div>
+							</label>
+						</div>
+				</div>
+			</div>
+			<div>
+				<h3>Fecha solicitada</h3>
+				<input type="date" name="fecha" class="" max=date() required>
+			</div>
+			<div>
+				<button type="submit" class="buttomsmc">Buscar</button>
+			</div>
+		</form>
+	</div>
+
+	<div class="smc-masivo">
+		<p><i class='bx bxs-bell-ring bx-tada' ></i>  Para busqueda de varias coordenadas, haga click <a href="{% url 'SMCMasivo' %}">aqui</a>.  <i class='bx bxs-bell-ring bx-tada' ></i></p>
+	</div>
+	
+	{% if result %}
+		{% if resultSitios %}
+			<div class="resultados">
+				<h2><i class='bx bx-broadcast bx-md'></i>  Sitios</h2>
+				<button onclick="ExportToExcelSitios('xlsx')">Descargar</button>
+
+				<table class="tablasitios">
+					<thead class="">
+						<tr>
+							<th scope="col">Coordenadas Buscadas</th>
+							<th scope="col">Coordenadas del Sitio</th>
+							<th scope="col">Sitio Vieja</th>
+							<th scope="col">Sitio Nueva</th>
+							<th scope="col">Distancia (Km)</th>
+							<th scope="col">Calidad de cobertura</th>
+							<th scope="col">Es Indoor?</th>
+							<th scope="col">RanSharing</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for x in resultSitios %}
+							<tr>
+								<td>{{ x.COORDENADA_BUSCADA }}</td>
+								<td>{{ x.LATITUD | floatformat:5 }}, {{ x.LONGITUD | floatformat:5 }}</td>
+								<td>{{ x.SITIO }}</td>
+								<td>{{ x.SITIO_OLD }}</td>
+								<td>{{ x.DISTANCIA | floatformat:2 }}</td>
+								<td>{{ x.COBERTURA }}</td>
+								<td>{% if x.ES_INDOOR is not None %} Si
+									{% else %} No
+									{% endif %}
+								</td>
+								<td>{{ OWNER }}</td>
+							</tr> 
+						{% endfor %}
+					</tbody>
+				</table>
+
+				<h2><i class='bx bx-broadcast bx-md'></i>  Celdas</h2>
+				<button onclick="ExportToExcelCeldas('xlsx')">Descargar</button>
+
+				<table class="tablaceldas">
+					<thead class="">
+						<tr>
+							<th scope="col">TECNOLOGIA</th>
+							<th scope="col">U_TECNICA_OLD</th>
+							<th scope="col">NOMBRE_CELDA_OLD</th>
+							<th scope="col">CELLID_NUEVO</th>
+							<th scope="col">BTS_NAME_NUEVO</th>
+							<th scope="col">CID</th>
+							<th scope="col">LAC/TAC</th>
+							<th scope="col">NOMBRE</th>
+							<th scope="col">LOCALIDAD</th>
+							<th scope="col">DEPARTAMENTO</th>
+							<th scope="col">PROVINCIA</th>
+							<th scope="col">CALLE</th>
+							<th scope="col">NUMERO</th>
+							<th scope="col">LATITUD</th>
+							<th scope="col">LONGITUD</th>
+							<th scope="col">Radio de Cobertura (Km)</th>
+							<th scope="col">AZIMUTH</th>
+							<th scope="col">Angulo de apertura</th>
+							<th scope="col">EUTRANCELID</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for x in resultCeldas %}
+							<tr>
+								<td>{{ x.TECNOLOGIA }}</td>
+								<td>{{ x.U_TECNICA_OLD }}</td>
+								<td>{{ x.NOMBRE_CELDA_OLD }}</td>
+								<td>{{ x.CELLID_NUEVO }}</td>
+								<td>{{ x.BTS_NAME_NUEVO }}</td>
+								<td>{{ x.CID }}</td>
+								<td>{{ x.LAC }}</td>
+								<td>{{ x.NOMBRE }}</td>
+								<td>{{ x.LOCALIDAD }}</td>
+								<td>{{ x.DEPARTAMENTO }}</td>
+								<td>{{ x.PROVINCIA }}</td>
+								<td>{{ x.CALLE }}</td>
+								<td>{{ x.NUMERO }}</td>
+								<td>{{ x.LATITUD }}</td>
+								<td>{{ x.LONGITUD }}</td>
+								<td>{{ x.RADIO }}</td>
+								<td>{{ x.AZIMUTH }}</td>
+								<td>{{ x.ANGULO }}</td>
+								<td>{{ x.EUTRANCELLID }}</td>
+							</tr> 
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% else %}
+			<div class="resultados">
+				<h2><i class='bx bx-broadcast bx-md'></i>  Sin Resultados</h2>
+			</div>
+		{% endif %}	
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_servicios/js/smc.js' %}"></script>
+{% endblock %}

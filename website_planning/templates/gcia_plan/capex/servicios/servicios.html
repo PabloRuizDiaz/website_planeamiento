@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Capex -Servicios-
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_servicios/css/servicios.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title-servicios">
+    <h1>Nuestros Servicios</h1>
+    <p>Acercando servicios de agilidad y simplicidad.</p>
+</div>
+{% comment %}
+<div class="servicios">
+    <div class="wrapper">
+        <div class="cols">
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Titulo</p>
+                            <span>Descripcion</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="{% url '' %}" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endcomment %}
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_servicios/js/servicios.js' %}"></script>
+{% endblock %}

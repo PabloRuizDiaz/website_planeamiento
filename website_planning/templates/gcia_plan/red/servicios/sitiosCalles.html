@@ -1,0 +1,144 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Busqueda por calles
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_servicios/css/sitiosCalles.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Buscador de Cobertura por Calles</h1>
+    <p>Buscador donde a traves de una calle entre sus numeraciones entrega los sitios que dan cobertura.</p>
+</div>
+
+<div class="nuevo_pry">
+    <form action="{% url 'CalleSitios' %}" class='box' method="POST" novalidate>
+        {% csrf_token %}
+        <div class="form">
+            <div class="formIzquierda">
+                <input type="text" name="provincia" placeholder="Provincia" required>
+
+                <div style="margin-top: 20px;">
+                    <div>
+                        <input type="text" name="calle1" placeholder="Calle 1" required>
+
+                        <input type="text" name="calle2" placeholder="Calle 2" required>
+
+                        <input type="text" name="calle3" placeholder="Calle 3" required>
+
+                        <input type="date" name="fecha" class="date" max=date() placeholder="Fecha deseada" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formDerecha">
+                <input type="text" name="localidad" placeholder="Localidad" required>
+
+                <div class="subform">
+                    <div class="formIzquierda">
+                        <input type="text" name="calle1Ni" placeholder="N° Calle 1 Inicial" required>
+
+                        <input type="text" name="calle2Ni" placeholder="N° Calle 2 Inicial" required>
+
+                        <input type="text" name="calle3Ni" placeholder="N° Calle 3 Inicial" required>
+                    </div>
+
+                    <div class="formDerecha">
+                        <input type="text" name="calle1Nf" placeholder="N° Calle 1 Final" required>
+
+                        <input type="text" name="calle2Nf" placeholder="N° Calle 2 Final" required>
+
+                        <input type="text" name="calle3Nf" placeholder="N° Calle 3 Final" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="" href="{% url 'CalleSitios' %}">Cargar</button>
+    </form>
+</div>
+
+{% if result %}
+		{% if sitiosCalle1 %}
+			<div class="resultados">
+				<h2><i class='bx bx-broadcast bx-md'></i>  Sitios</h2>
+				<button onclick="ExportToExcelSitios('xlsx')">Descargar</button>
+
+				<table class="tablasitios">
+					<thead class="">
+						<tr>
+							<th scope="col">Calle Buscada</th>
+							<th scope="col">Coordenadas del Sitio</th>
+							<th scope="col">Sitio Vieja</th>
+							<th scope="col">Sitio Nueva</th>
+							<th scope="col">Distancia (Km)</th>
+							<th scope="col">Calidad de cobertura</th>
+							<th scope="col">Es Indoor?</th>
+							<th scope="col">RanSharing</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for x in sitiosCalle1 %}
+							<tr>
+								<td>{{ x.CALLE_BUSCADA }}</td>
+								<td>{{ x.LATITUD | floatformat:5 }}, {{ x.LONGITUD | floatformat:5 }}</td>
+								<td>{{ x.SITIO }}</td>
+								<td>{{ x.SITIO_OLD }}</td>
+								<td>{{ x.DISTANCIA | floatformat:2 }}</td>
+								<td>{{ x.COBERTURA }}</td>
+								<td>{% if x.ES_INDOOR is not None %} Si
+									{% else %} No
+									{% endif %}
+								</td>
+								<td>{{ OWNER }}</td>
+							</tr> 
+						{% endfor %}
+                        {% for x in sitiosCalle2 %}
+							<tr>
+								<td>{{ x.CALLE_BUSCADA }}</td>
+								<td>{{ x.LATITUD | floatformat:5 }}, {{ x.LONGITUD | floatformat:5 }}</td>
+								<td>{{ x.SITIO }}</td>
+								<td>{{ x.SITIO_OLD }}</td>
+								<td>{{ x.DISTANCIA | floatformat:2 }}</td>
+								<td>{{ x.COBERTURA }}</td>
+								<td>{% if x.ES_INDOOR is not None %} Si
+									{% else %} No
+									{% endif %}
+								</td>
+								<td>{{ OWNER }}</td>
+							</tr> 
+						{% endfor %}
+                        {% for x in sitiosCalle3 %}
+							<tr>
+								<td>{{ x.CALLE_BUSCADA }}</td>
+								<td>{{ x.LATITUD | floatformat:5 }}, {{ x.LONGITUD | floatformat:5 }}</td>
+								<td>{{ x.SITIO }}</td>
+								<td>{{ x.SITIO_OLD }}</td>
+								<td>{{ x.DISTANCIA | floatformat:2 }}</td>
+								<td>{{ x.COBERTURA }}</td>
+								<td>{% if x.ES_INDOOR is not None %} Si
+									{% else %} No
+									{% endif %}
+								</td>
+								<td>{{ OWNER }}</td>
+							</tr> 
+						{% endfor %}
+					</tbody>
+				</table>
+		{% else %}
+			<div class="resultados">
+				<h2><i class='bx bx-broadcast bx-md'></i>  Sin Resultados</h2>
+			</div>
+		{% endif %}	
+	{% endif %}
+
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_servicios/js/sitiosCalles.js' %}"></script>
+{% endblock %}

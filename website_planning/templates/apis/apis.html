@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+APIs
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'apis/css/apis.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title-apis">
+    <h1>APIs</h1>
+    <p>Servicio de conexion a datos a traves de JSON.</p>
+</div>
+
+{% for x in list_apis %}
+  {% if x.PUBLICACION %}
+    <button class="accordion">{{ x.NOMBRE }}</button>
+    <div class="panel">
+        <h3>Descripcion:</h3>
+        <p>{{ x.DESCRIPCION }}</p>
+        <h3>JSON:</h3>
+        <p>{{ x.EJEMPLO_JSON }}</p>
+        <h3>Link:</h3>
+        <a href="#">{{ x.LINK }}</a>
+    </div>
+  {% endif %}
+{% endfor %}
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'apis/js/apis.js' %}"></script>
+{% endblock %}

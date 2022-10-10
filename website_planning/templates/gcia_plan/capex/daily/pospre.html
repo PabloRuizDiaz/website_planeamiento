@@ -1,0 +1,67 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Carga PosPre
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_daily/css/pospre.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Carga de nuevos PosPre</h1>
+    <p>Carga de nuevas lineas de Posicion Presupuestaria por pais.</p>
+</div>
+
+<div class="notes">
+    <h2>Notas:</h2>
+    <ol>
+        <li><i class='bx bx-check bx-sm'></i>  Recordar que la informacion se sobrescribirá.</li>
+        <li><i class='bx bx-check bx-sm'></i>  Se debe utilizar el template que se puede descargar debajo para la correcta carga.</li>
+        <li><i class='bx bx-check bx-sm'></i>  Los datos habran terminado de cargar cuando el mensaje de exito se cargue (esto puede tardar unos minutos dependiendo del volumen de datos).</li>
+    </ol>
+</div>
+
+<div class="pospre">
+    <form action="{% url 'CargaPosPre' %}" enctype="multipart/form-data" class='box' method="POST" novalidate>
+        {% csrf_token %}
+        <input type="file" name="file" id=""><br>
+        <button type="submit" class="" href="{% url 'CargaPosPre' %}">Cargar</button>
+    </form>
+</div>
+
+<div class="resultados">
+    <div class="template">
+        <h2><i class='bx bx-grid bx-sm'></i>  Template de carga</h2>
+        <button onclick="ExportToExcelTemplate('xlsx')">Descargar</button>
+    </div>
+
+    <table class="tablaTemplate" style="display: none;">
+        <thead class="">
+            <tr>
+                <th scope="col">POSPRE</th>
+                <th scope="col">DESCRIPCION_POSPRE</th>
+                <th scope="col">RUBRO</th>
+                <th scope="col">RUBRO_1</th>
+                <th scope="col">RED</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr> 
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_daily/js/pospre.js' %}"></script>
+{% endblock %}

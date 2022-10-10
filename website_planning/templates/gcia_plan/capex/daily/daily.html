@@ -1,0 +1,98 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block titulo%}
+Capex -Daily-
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'gcia_daily/css/daily.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="title">
+    <h1>Jefatura de Presupuesto</h1>
+    <p>Por un mejor seguimiento de presupuesto, dia a dia.</p>
+</div>
+
+<div class="servicios">
+    <div class="wrapper">
+        <div class="cols">
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Tasa de Cambio</p>
+                            <span>Carga de tasas de cambio para automatismos.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="{% url 'TasaCambio' %}" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>PosPre Nuevas</p>
+                            <span>Carga de nuevos PosPre.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="{% url 'CargaPosPre' %}" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Proveedores Nuevos</p>
+                            <span>Carga de nuevos Proveedores.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="{% url 'Proveedores' %}" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front">
+                        <div class="inner">
+                            <p>Proyectos Carry Over</p>
+                            <span>Carga de listado de Finanzas de proyectos carry over.</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <a href="{% url 'CarryOver' %}" target="_blank" class="hover_inner">
+                                <span>Ver Servicio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'gcia_daily/js/daily.js' %}"></script>
+{% endblock %}
